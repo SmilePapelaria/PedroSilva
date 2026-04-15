@@ -37,6 +37,59 @@
   }
 
   /**
+   * Modern mobile overlay navigation
+   */
+  const modernMobileToggleBtn = document.querySelector('.modern-mobile-nav-toggle');
+  const modernMobileOverlay = document.querySelector('.modern-mobile-overlay');
+  const modernMobileCloseBtn = document.querySelector('.modern-mobile-close');
+
+  function openModernMobileNav() {
+    if (!modernMobileOverlay) return;
+    modernMobileOverlay.classList.add('active');
+    if (modernMobileToggleBtn) {
+      modernMobileToggleBtn.classList.add('is-open');
+    }
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModernMobileNav() {
+    if (!modernMobileOverlay) return;
+    modernMobileOverlay.classList.remove('active');
+    if (modernMobileToggleBtn) {
+      modernMobileToggleBtn.classList.remove('is-open');
+    }
+    document.body.style.overflow = '';
+  }
+
+  if (modernMobileToggleBtn && modernMobileOverlay) {
+    modernMobileToggleBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openModernMobileNav();
+    });
+  }
+
+  if (modernMobileCloseBtn) {
+    modernMobileCloseBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeModernMobileNav();
+    });
+  }
+
+  if (modernMobileOverlay) {
+    modernMobileOverlay.addEventListener('click', function(e) {
+      if (e.target === modernMobileOverlay) {
+        closeModernMobileNav();
+      }
+    });
+  }
+
+  document.querySelectorAll('.modern-mobile-item').forEach(item => {
+    item.addEventListener('click', function() {
+      closeModernMobileNav();
+    });
+  });
+
+  /**
    * Hide mobile nav on same-page/hash links
    */
   document.querySelectorAll('#navmenu a').forEach(navmenu => {
